@@ -1,4 +1,4 @@
-#include "game.h"
+#include "Game.h"
 #include <random>
 using namespace std;
 Wheel::Wheel() {
@@ -17,3 +17,8 @@ int Wheel::get_wheel_size() {
 void Wheel::set_wheel_size(int size) {
 	wheel_size = size;
 }
+
+Player(int _money, Wheel playerWheel) : money(_money), pWheel(playerWheel)
+Player() : Player(0, Wheel()) {}
+int Player::get_cash() { return cash; }
+void Player::set_cash(int v) { cash = v; }
