@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Game.h"
 using namespace std;
 
 int main() {
@@ -24,3 +25,9 @@ int main() {
 
     }
 }
+
+Wheel playerWheel;
+playerWheel.set_wheel_size(); //enter wherever we get that
+
+Wheel houseWheel;
+houseWheel.set_wheel_size(); //enter wherever we get 
