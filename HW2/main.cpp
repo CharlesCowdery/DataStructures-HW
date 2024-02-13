@@ -14,6 +14,12 @@ int main() {
         else break;
     }
 
+    Wheel playerWheel;
+    playerWheel.set_wheel_size(wheelSize);
+
+    Wheel houseWheel;
+    houseWheel.set_wheel_size(wheelSize);
+
     while (true){
         int wagerModification = 0;
         
@@ -36,10 +42,5 @@ int main() {
         }
 
     }
+    
 }
-
-Wheel playerWheel;
-playerWheel.set_wheel_size(); //enter wherever we get that
-
-Wheel houseWheel;
-houseWheel.set_wheel_size(); //enter wherever we get 
