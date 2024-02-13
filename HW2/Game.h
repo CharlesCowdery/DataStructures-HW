@@ -1,20 +1,20 @@
 #pragma once
-class wheel {
+class Wheel {
 private:
 	int wheel_size;
 public:
-	wheel();
+	Wheel();
 	int spin();
 	int get_wheel_size();
 	void set_wheel_size(int s);
 };
-class player {
+class Player {
 private:
 	int cash;
 public:
-	player();
-	player(int money,wheel playerWheel );
-	wheel pWheel;
+	Player();
+	Player(int money,Wheel playerWheel );
+	Wheel pWheel;
 	int get_cash();
 	void set_cash();
 };
