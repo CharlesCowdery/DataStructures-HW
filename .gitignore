@@ -1,3 +1,7 @@
+#ignores
+HW2/game.h
+HW2/game.cpp
+
 # Prerequisites
 *.d
 
