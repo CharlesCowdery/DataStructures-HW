@@ -3,7 +3,7 @@
 #include <time.h>
 #include "game.h";
 using namespace std;
-float spinning(Wheel house, string s, int spin_num) {
+float spinning(Wheel house, string s, int spin_num) { //Code for spinning the wheel based on user input, returns house spin
 	int house_num1;
 	int house_num2;
 	if (s == "k") {
@@ -78,7 +78,7 @@ float play(Player& p, Wheel house_wheel,bool h) {
 	else {
 		cout << "You lost :(" << endl;
 		loose++;
-		if (h && loose == 2) {
+		if (h && loose == 2 && house_wheel.get_wheel_size()>6) {
 			loose = 0;
 			cout << "House wheel decreased by 1!" << endl;
 			house_wheel.set_wheel_size(house_wheel.get_wheel_size() - 1);
