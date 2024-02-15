@@ -8,7 +8,7 @@ Wheel::Wheel() {
 Wheel::Wheel(int size) {
 	wheel_size = size;
 }
-int Wheel::spin() {
+int Wheel::spin() { //returns a random number in an inclusive range of the wheel
 	return rand() % wheel_size + 1; //inclusive range
 }
 int Wheel::get_wheel_size() { //setters and getters for size
