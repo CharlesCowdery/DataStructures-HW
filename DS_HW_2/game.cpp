@@ -2,16 +2,16 @@
 #include <random>
 using namespace std;
 Wheel::Wheel() {
-	wheel_size = 10;
+	wheel_size = 10; //init to default size
 
 }
 Wheel::Wheel(int size) {
 	wheel_size = size;
 }
 int Wheel::spin() {
-	return rand() % wheel_size + 1;
+	return rand() % wheel_size + 1; //inclusive range
 }
-int Wheel::get_wheel_size() {
+int Wheel::get_wheel_size() { //setters and getters for size
 	return wheel_size;
 }
 void Wheel::set_wheel_size(int size) {
