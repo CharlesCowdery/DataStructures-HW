@@ -36,17 +36,17 @@ float play(Player& p, Wheel house_wheel,bool h) {
 	float bet = 0;
 	int spin_num;
 	string type = "";
-	cout << "How much would you like to bet?" << endl;
+	cout << "How much would you like to bet?\n$" << endl;
 	cin >> bet;
 	while (bet > p.get_cash()) {
-		cout << "Invaild bet size reenter bet" << endl;
+		cout << "Invaild bet size reenter bet\n$" << endl;
 		cin >> bet;
 	}
 	spin_num = p.pWheel.spin();
-	cout << "you spun a: " << spin_num << endl<<"would you like to keep(k) half(h) or double(d) your bet?" << endl;
+	cout << "You spun a " << spin_num << endl<<"How would you like to modify your bet\n[k] Keep\n[h] Half\n[d] Double" << endl;
 	cin >> type;
 	while (type != "k" && type != "h" && type != "d") {
-		cout << "invalid input input k, h, or d";
+		cout << "Invalid input input k, h, or d";
 		cin >> type;
 	}
 	if (type == "k") {
@@ -65,24 +65,24 @@ float play(Player& p, Wheel house_wheel,bool h) {
 		}
 	}
 	if (spinning(house_wheel, type, spin_num)) {
-		cout << "congrats you won! " << endl;
+		cout << "Congrats you won! " << endl;
 		loose = 0;
 		if (h ) {
 			
-			cout << "house wheel increased by 1!" << endl;
+			cout << "House wheel increased by 1!" << endl;
 			house_wheel.set_wheel_size(house_wheel.get_wheel_size() + 1);
 			cout << "the house wheel is now:" <<house_wheel.get_wheel_size()<< endl;
 		}
 		return bet;
 	}
 	else {
-		cout << "you lost :(" << endl;
+		cout << "You lost :(" << endl;
 		loose++;
 		if (h && loose == 2) {
 			loose = 0;
-			cout << "house wheel decreased by 1!" << endl;
+			cout << "House wheel decreased by 1!" << endl;
 			house_wheel.set_wheel_size(house_wheel.get_wheel_size() - 1);
-			cout << "the house wheel is now:" << house_wheel.get_wheel_size() << endl;
+			cout << "The house wheel is now:" << house_wheel.get_wheel_size() << endl;
 		}
 		return -bet;
 	}
@@ -99,12 +99,12 @@ int main() {
 	cout << "Enter how much money you would like to start with: $";
 	cin >> moneyCount;
 	while (true) {
-		cout << "choose the size of wheel youd like to play with [6-20]: " << flush;
+		cout << "Enter the size of wheel you'd like to play with [6-20]: " << flush;
 		cin >> wheelSize;
 		if (wheelSize < 6 || wheelSize > 20) cout << "Out of range." << endl;
 		else break;
 	}
-	cout << "Would you like to play in hardmode?(y/n)";
+	cout << "Would you like to play in hardmode? (y/n)";
 	cin >> in;
 	if (in == "y") {
 		hard = true;
@@ -115,10 +115,10 @@ int main() {
 	int opt = 0;
 
 	while (p.get_cash() > 0&&!hard) {
-		cout << "what would you like to do? 1: bet and play. 2:see money. 3: cashout." << endl;
+		cout << "What would you like to do?\n[1] bet and play\n[2] see money\n[3] cashout\n" << endl;
 		cin >> opt;
 		while (opt < 1 || opt>3) {
-			cout << "invalid input please do options 1 through 3:" << endl;
+			cout << "Invalid input please enter either a 1, 2, or 3: " << endl;
 			cin >> opt;
 		}
 		if (opt == 1) {
@@ -137,18 +137,18 @@ int main() {
 	}
 	while (p.get_cash() > 0 && hard) {
 		int win = 0;
-		cout << "what would you like to do? 1: bet and play. 2:see money. 3: cashout." << endl;
+		cout << "What would you like to do?\n[1] bet and play\n[2] see money\n[3] cashout\n" << endl;
 		cin >> opt;
 		while (opt < 1 || opt>3) {
-			cout << "invalid input please do options 1 through 3:" << endl;
+			cout << "Invalid input please enter either a 1, 2, or 3: " << endl;
 			cin >> opt;
 		}
 		if (opt == 1) {
 			p.set_cash(p.get_cash() + play(p, h,hard));
-			cout << "your new total cash is:" << p.get_cash() << endl;
+			cout << "Your new total cash is: $" << p.get_cash() << endl;
 		}
 		else if (opt == 2) {
-			cout << "your total cash is:" << p.get_cash() << endl;
+			cout << "Your total cash is: $" << p.get_cash() << endl;
 		}
 		else if (opt == 3) {
 			cout << "goodbye" << endl;
