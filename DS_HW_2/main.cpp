@@ -31,14 +31,14 @@ float spinning(Wheel house, string s, int spin_num) { //Code for spinning the wh
 	}
 
 }
-float play(Player& p, Wheel house_wheel,bool h) {
+float play(Player& p, Wheel house_wheel,bool h) { //handles gameplay where user can keep, half, or double bet
 	static int loose=0;
 	float bet = 0;
 	int spin_num;
 	string type = "";
 	cout << "How much would you like to bet?\n$" << endl;
 	cin >> bet;
-	while (bet > p.get_cash()) {
+	while (bet > p.get_cash()) { //check for valid input
 		cout << "Invaild bet size reenter bet\n$" << endl;
 		cin >> bet;
 	}
@@ -49,7 +49,7 @@ float play(Player& p, Wheel house_wheel,bool h) {
 		cout << "Invalid input input k, h, or d";
 		cin >> type;
 	}
-	if (type == "k") {
+	if (type == "k") { //takes action on user input for bet modifications
 		bet = bet;
 	}
 	else if (type == "h") {
@@ -64,7 +64,7 @@ float play(Player& p, Wheel house_wheel,bool h) {
 			type = "k";
 		}
 	}
-	if (spinning(house_wheel, type, spin_num)) {
+	if (spinning(house_wheel, type, spin_num)) { //when user wins
 		cout << "Congrats you won! " << endl;
 		loose = 0;
 		if (h ) {
@@ -75,10 +75,10 @@ float play(Player& p, Wheel house_wheel,bool h) {
 		}
 		return bet;
 	}
-	else {
+	else { //when user loses
 		cout << "You lost :(" << endl;
 		loose++;
-		if (h && loose == 2 && house_wheel.get_wheel_size()>6) {
+		if (h && loose => 2 && house_wheel.get_wheel_size()>6) {
 			loose = 0;
 			cout << "House wheel decreased by 1!" << endl;
 			house_wheel.set_wheel_size(house_wheel.get_wheel_size() - 1);
@@ -91,7 +91,7 @@ float play(Player& p, Wheel house_wheel,bool h) {
 
 int main() {
 	//setting it to be random used:http://stackoverflow.com/a/16569330/13946283
-	srand(time(NULL));
+	srand(time(NULL)); //seed rand function
 	float moneyCount = 0;
 	int wheelSize = 0;
 	string in;
@@ -104,7 +104,7 @@ int main() {
 		if (wheelSize < 6 || wheelSize > 20) cout << "Out of range." << endl;
 		else break;
 	}
-	cout << "Would you like to play in hardmode? (y/n)";
+	cout << "Would you like to play in hardmode? (y/n)"; //Extra credit implementation (hard mode)
 	cin >> in;
 	if (in == "y") {
 		hard = true;
@@ -114,7 +114,7 @@ int main() {
 	Wheel h(wheelSize);
 	int opt = 0;
 
-	while (p.get_cash() > 0&&!hard) {
+	while (p.get_cash() > 0&&!hard) { //non-hardmode gameplay
 		cout << "What would you like to do?\n[1] bet and play\n[2] see money\n[3] cashout\n" << endl;
 		cin >> opt;
 		while (opt < 1 || opt>3) {
@@ -135,7 +135,7 @@ int main() {
 
 
 	}
-	while (p.get_cash() > 0 && hard) {
+	while (p.get_cash() > 0 && hard) { //hardmode gameplay
 		int win = 0;
 		cout << "What would you like to do?\n[1] bet and play\n[2] see money\n[3] cashout\n" << endl;
 		cin >> opt;
