@@ -78,7 +78,7 @@ float play(Player& p, Wheel house_wheel,bool h) { //handles gameplay where user 
 	else { //when user loses
 		cout << "You lost :(" << endl;
 		loose++;
-		if (h && loose => 2 && house_wheel.get_wheel_size()>6) {
+		if (h && loose >= 2 && house_wheel.get_wheel_size()>6) {
 			loose = 0;
 			cout << "House wheel decreased by 1!" << endl;
 			house_wheel.set_wheel_size(house_wheel.get_wheel_size() - 1);

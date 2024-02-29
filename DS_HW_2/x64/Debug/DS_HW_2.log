@@ -1,6 +1,1 @@
-﻿  main.cpp
-C:\Users\204jm\source\repos\DS_lab4\DS_HW_2\main.cpp(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\204jm\source\repos\DS_lab4\DS_HW_2\main.cpp(56,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\204jm\source\repos\DS_lab4\DS_HW_2\main.cpp(94,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\204jm\source\repos\DS_lab4\DS_HW_2\main.cpp(33): warning C4715: 'spinning': not all control paths return a value
-  DS_HW_2.vcxproj -> C:\Users\204jm\source\repos\DS_lab4\DS_HW_2\x64\Debug\DS_HW_2.exe
+﻿  DS_HW_2.vcxproj -> C:\Users\Charlie\source\repos\CharlesCowdery\DataStructures-HW\DS_HW_2\x64\Debug\DS_HW_2.exe
