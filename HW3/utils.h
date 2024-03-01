@@ -8,6 +8,7 @@ using namespace std;
 /*
 //////
 
+Authored by Charles Cowdery
 This is just a small util library containing some user input methods i wrote.
 
 //////
