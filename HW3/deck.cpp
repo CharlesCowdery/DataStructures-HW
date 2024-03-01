@@ -22,7 +22,7 @@ void deck::enqueue(int value) {
 
 int deck::dequeue() {
     if (isEmpty()) {
-        throw deckEmpty();
+        throw DeckEmpty();
     }
     CardNode* temp = front;
     int value = temp->value;
