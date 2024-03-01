@@ -1,15 +1,12 @@
 #pragma once
 #include <iostream>
-using std::string;
 
-class StackFull {
+class DeckEmpty: public std::exception {
     private:
-        string const message = "\nError: Stack is full. Cannot add to stack.";
+        std::string const message = "\n Error: Queue is already empty.";
     public:
-        // Constructor
-        StackFull() {}
-        // Getter
-        string GetMessage() {
+        DeckEmpty() {}
+        std::string GetMessage() {
             return message;
         }
 };
