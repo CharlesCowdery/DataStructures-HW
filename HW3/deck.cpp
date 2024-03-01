@@ -1,14 +1,14 @@
 #include "deck.h"
 
-Deck::Deck() : front(nullptr), rear(nullptr), size(0) {}
+deck::deck() : front(nullptr), rear(nullptr), size(0) {}
 
-Deck::~Deck() {
+deck::~deck() {
     while (!isEmpty()) {
         dequeue();
     }
 }
 
-void Deck::enqueue(int value) {
+void deck::enqueue(int value) {
     CardNode* newNode = new CardNode(value);
     if (isEmpty()) {
         front = rear = newNode;
@@ -19,9 +19,9 @@ void Deck::enqueue(int value) {
     size++;
 }
 
-int Deck::dequeue() {
+int deck::dequeue() {
     if (isEmpty()) {
-        throw "stack underflow"
+        throw "stack underflow";
     }
     CardNode* temp = front;
     int value = temp->value;
@@ -34,10 +34,10 @@ int Deck::dequeue() {
     return value;
 }
 
-int Deck::getSize() const {
+int deck::getSize() const {
     return size;
 }
 
-bool Deck::isEmpty() const {
+bool deck::isEmpty() const {
     return size == 0;
 }

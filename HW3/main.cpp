@@ -60,7 +60,7 @@ public:
 				cout << "!! Deck full, cant push card !!" << endl;
 				continue;
 			}
-			if (choice == 2 && pile.getlength <= 0) {
+			if (choice == 2 && pile.getlength() <= 0) {
 				cout << "!! Deck empty, cant pull card !!" << endl;
 				continue;
 			}
@@ -95,15 +95,15 @@ public:
 };
 
 class Computer : public Player {
-private:
-	int difficulty;
 public:
 	void create(int index) {
-		difficulty = bounded_input<int>("Enter computer difficulty (0-5):", "difficulty", 0b1111, 0, 5);
 		name = "Com" + to_string(index);
 	}
-	void play(Player opp) {
+	int play(Player opp) {
+		int card = pDeck.dequeue();
+		if (card < 5 && pile.getlength() > 0) {
 
+		}
 	}
 };
 
@@ -119,6 +119,6 @@ int main() {
 	}
 
 	while (true) {
-		ply.play();
+		ply.play(com);
 	}
 }

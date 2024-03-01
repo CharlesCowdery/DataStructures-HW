@@ -1,24 +1,24 @@
 #pragma once
 #include <iostream>
 
-class cardNode {
+class CardNode {
 public:
     int value;
-    cardNode* next;
+    CardNode* next;
 
-    cardNode(int val) : value(val), next(nullptr) {}
+    CardNode(int val) : value(val), next(nullptr) {}
 };
 
 class deck {
 private:
-    cardNode* front;
-    cardNode* rear;
+    CardNode* front;
+    CardNode* rear;
     int size;
 
 public:
     deck();
     void enqueue(int value);
     int dequeue();
-    int const getSize();
-    bool const isEmpty();
+    int getSize() const;
+    bool isEmpty() const;
 };

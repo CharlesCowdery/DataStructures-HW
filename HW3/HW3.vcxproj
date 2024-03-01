@@ -98,8 +98,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="deck.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="side_pile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="deck.h" />
