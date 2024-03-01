@@ -1,4 +1,5 @@
 #include "deck.h"
+#include "deck_empty.h"
 
 deck::deck() : front(nullptr), rear(nullptr), size(0) {}
 
@@ -21,7 +22,7 @@ void deck::enqueue(int value) {
 
 int deck::dequeue() {
     if (isEmpty()) {
-        throw "stack underflow";
+        throw DeckEmpty();
     }
     CardNode* temp = front;
     int value = temp->value;
