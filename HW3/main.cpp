@@ -23,8 +23,8 @@ protected:
 public:
 	int totCards() { return pile.getlength() + pDeck.getSize(); }
 	void stock_deck(int card) { pDeck.enqueue(card); }
-	virtual resPair play(Player opp);
-	virtual void create(int index);
+	virtual resPair play(Player opp) { resPair dummy; return dummy; };
+	virtual void create(int index) { name = "player"; };
 	int peekDeck() { return pDeck.getSize(); }
 	string getName() { return name; }
 	
@@ -143,8 +143,8 @@ public:
 };
 
 int main() {
-	Player ply;
-	Player com;
+	User ply;
+	Computer com;
 	int play_type;
 	int num_rounds;
 	int player_wins = 0;
@@ -156,6 +156,7 @@ int main() {
 
 	for (int i = 0; i < 52; i++) {
 		ply.stock_deck(i % 13+1);
+		com.stock_deck(i % 13 + 1);
 	}
 	cout<<"would you like to play until empty(1) or for a number of rounds(2)?"<<endl;
 	cin >> play_type;
@@ -202,8 +203,60 @@ int main() {
 	
 	}
 	else {
-		while (true) {
-			ply.play(com);
+		cout << "how many rounds would you like to play:" << endl;
+		cin >> num_rounds;
+		while ((num_rounds > 0)&&((ply.totCards() > 0 && com.totCards() > 0))) {
+			resPair com_card;
+			resPair ply_card;
+			ply_card = ply.play(com);
+			com_card = com.play(ply);
+			cout << "the computer played a total card value of: " << com_card.c1 + com_card.c2;
+			cout << " You played a card value of : " << ply_card.c1 + ply_card.c2 << endl;
+			if ((ply_card.c1 + ply_card.c2) > (com_card.c1 + com_card.c2)) {
+				cout << "congrats you won!" << endl << "adding cards to your deck!" << endl;
+				ply.stock_deck(ply_card.c1);
+				if (ply_card.c2 != 0) {
+					ply.stock_deck(ply_card.c2);
+
+				}
+				ply.stock_deck(com_card.c2);
+				if (com_card.c2 != 0) {
+					ply.stock_deck(com_card.c2);
+
+				}
+
+			}
+			else {
+				cout << "womp womp you lost :(" << endl << "adding cards to computer deck!" << endl;
+				com.stock_deck(ply_card.c1);
+				if (ply_card.c2 != 0) {
+					ply.stock_deck(ply_card.c2);
+
+				}
+				com.stock_deck(com_card.c2);
+				if (com_card.c2 != 0) {
+					com.stock_deck(com_card.c2);
+
+				}
+
+				num_rounds--;
+			}
+
 		}
+	
+	
+	
 	}
+	if (ply.totCards() > com.totCards()) {
+		cout << "you won!" << endl;
+	
+	}
+	else if (ply.totCards() == com.totCards()) {
+		cout << "you tied" << endl;
+	}
+	else {
+	
+		cout << "womp womp you lost :(" << endl;
+	}
+	return 1;
 }

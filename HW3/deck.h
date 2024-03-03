@@ -17,6 +17,7 @@ private:
 
 public:
     deck();
+    ~deck();
     void enqueue(int value);
     int dequeue();
     int getSize() const;
