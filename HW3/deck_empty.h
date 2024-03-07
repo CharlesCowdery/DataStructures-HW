@@ -7,7 +7,7 @@ class DeckEmpty: public std::exception {
         std::string const message = "\n Error: Queue is already empty.";
     public:
         DeckEmpty() {}
-        std::string GetMessage() {
+        std::string what() {
             return message;
         }
 };

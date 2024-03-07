@@ -45,7 +45,7 @@ public:
 	}
 	//play function for player
 	resPair play(Player& opp) {
-		string opp_name = opp.getName();
+		string opp_name = opp.getName(); //print stats
 		printf("%9s   %-9s\n", name.c_str(), opp_name.c_str());
 		cout << "Deck Pile   Deck Pile" << endl;
 		printf("%4i %4i   %4i    ?\n", pDeck.getSize(), pile.getlength(), opp.peekDeck());
@@ -69,7 +69,7 @@ public:
 		this_thread::sleep_for(chrono::milliseconds(100));
 		cout << card << endl << endl;
 
-		bool c1e = pile.getlength() < 5 && pDeck.getSize() > 0;
+		bool c1e = pile.getlength() < 5 && pDeck.getSize() > 0; //precomputes branch conditions to make logic more readable
 		bool c2e = pile.getlength() > 0;
 
 		if (c1e) cout << "1) Push card\n";
@@ -78,7 +78,7 @@ public:
 		else cout << "X) Pull card X\n";
 		cout << "3) Play Card" << endl;
 		int choice;
-		while (true) {
+		while (true) { //input handling. if the input is an x'd out option, it continues the loop to get a new input
 			choice = bounded_input<int>("?: ", "choice", 0b1111, 1, 3);
 			if (choice == 1 && !c1e) {
 				if (pDeck.getSize() <= 0) {
@@ -112,14 +112,14 @@ public:
 
 			return { new_card };
 		}
-		//pulls a card from the pile and adds it to respair
+		//pulls a card from the pile and adds it to a respair
 		if (choice == 2) {
 			cout << "Card pulled. ";
 			int new_card = pile.play();
 			cout << card << endl;
 			return { card,new_card };
 		}
-		return { card };
+		return { card }; //plays the card if neither other option is picked
 
 
 	}
@@ -141,7 +141,7 @@ public:
 			int new_card = pile.play();
 			return { card,new_card };
 		}
-		//checking if it should put a card on the pile
+		//checking if it should pull a card from the pile
 		if (card < 5) {
 			if (pile.getlength() > 0) {
 				int new_card = pile.play();
@@ -149,6 +149,7 @@ public:
 			}
 			return { card };
 		}
+		//checking if it should push the card to the pile
 		if (card < 9) {
 			if (pile.getlength() < 5 && pDeck.getSize() > 0) {
 				pile.add(card);
@@ -157,6 +158,7 @@ public:
 			}
 			return { card };
 		}
+		//plays the card if its a high card
 		return { card };
 	}
 };
@@ -179,12 +181,14 @@ int main() {
 	com.create(1);
 
 	// godawful code to allow for deck randomization
+	// creates 13 seperate values marking how many of a card is left in the deck
 	int choices[13];
 	for (int i = 0; i < 13; i++) {
 		for (int k = 0; k < 4; k++) {
 			choices[i] = 4;
 		}
 	}
+	//dispensing cards
 	for (int i = 0; i < 26; i++) {
 		while (true) {
 			int sel = rand() % 13;
@@ -205,28 +209,31 @@ int main() {
 	cout << "Choose game type:\n1) until empty\n2) for a number of rounds" << endl;
 	play_type = bounded_input<int>("Selection? ", "selection", 0b1111, 1, 2);
 
-	int r_max;
-	int rounds = 0;
+	int r_max; //maximum rounds
+	int rounds = 0;//current round
 	if (play_type == 1) {
 		r_max = -1;
 	}
 	else {
 		r_max = bounded_input<int>("Enter round count: ", "count", 0b1100, 0);
 	}
-	//runs untill one of the player runs out of of cards or until the max runs are completed(if selected)
+	//runs until one of the player runs out of of cards or until the max runs are completed(if selected)
 	while ((ply.totCards() > 0 && com.totCards() > 0) && rounds != r_max) {
 		resPair com_card;
 		resPair ply_card;
 		cout << endl;
-		if (r_max > 0) {
+		if (r_max > 0) {//print round header. shows points if its round based
 			printf("Round %i: [%3i:%-3i]", rounds, ply.points, com.points);
 		}
 		else {
 			printf("Round %i: ", rounds);
 		}
 		cout << endl;
+		//card playing. runs player UI and computer AI
 		ply_card = ply.play(com);
 		com_card = com.play(ply);
+
+		//scordcard
 		cout << endl;
 		printf("%16s  %-15s\n", ply.getName().c_str(), com.getName().c_str());
 
