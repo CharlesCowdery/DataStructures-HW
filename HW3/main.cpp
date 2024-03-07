@@ -263,16 +263,17 @@ int main() {
 		rounds++;
 
 	}
+	int winner = ply.totCards() - com.totCards();
 	cout << "Game over!" << endl;
-	int winner = ply.peekDeck() > 0 - com.peekDeck() > 0;
-	if (r_max > 0) winner = ply.points > com.points - ply.points < com.points;
-	if (winner == -1) {
+	//int winner = ply.peekDeck() > 0 - com.peekDeck() > 0;
+	//if (r_max > 0) winner = ply.points > com.points - ply.points < com.points;
+	if (winner <0) {
 		cout << "Womp Womp you lose :(" << endl;
 	}
 	if (winner == 0) {
 		cout << "Its a tie!" << endl;
 	}
-	if (winner == 1) {
+	if (winner >0) {
 		cout << "You win!" << endl;
 	}
 	
