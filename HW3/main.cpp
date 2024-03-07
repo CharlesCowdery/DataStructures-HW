@@ -12,19 +12,21 @@
 
 
 using namespace std;
-
+//structure to return what cards are played
 struct resPair {
 	int c1 = 0;
 	int c2 = 0;
 	int total() { return c1 + c2; }
 };
-
+//overall base class for players
 class Player {
 protected:
+	//class variables for players that are private
 	side_pile pile = side_pile();
 	deck pDeck = deck();
 	string name = "";
 public:
+	//public functions and variables
 	int points = 0;
 	int totCards() { return pile.getlength() + pDeck.getSize(); }
 	void stock_deck(int card) { pDeck.enqueue(card); }
@@ -32,18 +34,21 @@ public:
 	virtual void create(int index) {}
 	int peekDeck() { return pDeck.getSize(); }
 	string getName() { return name; }
-	
+
 };
+//derived clas of player called user
 class User : public Player {
 public:
+	//public functions for users
 	void create(int index) {
 		name = input_s("Enter player " + to_string(index) + " name: ");
 	}
+	//play function for player
 	resPair play(Player& opp) {
 		string opp_name = opp.getName();
 		printf("%9s   %-9s\n", name.c_str(), opp_name.c_str());
 		cout << "Deck Pile   Deck Pile" << endl;
-		printf( "%4i %4i   %4i    ?\n", pDeck.getSize(), pile.getlength(), opp.peekDeck());
+		printf("%4i %4i   %4i    ?\n", pDeck.getSize(), pile.getlength(), opp.peekDeck());
 		cout << endl;
 
 		int card;
@@ -53,7 +58,7 @@ public:
 		else {
 			card = pile.play();
 		}
-
+		//code to print out the card drawn and give the user choices of what to do
 		cout << "Drawing" << flush;
 		this_thread::sleep_for(chrono::milliseconds(100)); //dramatic suspense
 		cout << "." << flush;
@@ -78,7 +83,8 @@ public:
 			if (choice == 1 && !c1e) {
 				if (pDeck.getSize() <= 0) {
 					cout << "!! Deck empty, cant push card !!" << endl;
-				} else if (pile.getlength() >= 5) {
+				}
+				else if (pile.getlength() >= 5) {
 					cout << "!! Pile full, cant push card !!" << endl;
 				}
 				continue;
@@ -89,6 +95,7 @@ public:
 			}
 			break;
 		}
+		//pushes to the side pile and plays a new card
 		if (choice == 1) {
 			pile.add(card);
 			int new_card = pDeck.dequeue();
@@ -102,9 +109,10 @@ public:
 			cout << "." << flush;
 			this_thread::sleep_for(chrono::milliseconds(50));
 			cout << new_card << endl;
-			
-			return {new_card};
+
+			return { new_card };
 		}
+		//pulls a card from the pile and adds it to respair
 		if (choice == 2) {
 			cout << "Card pulled. ";
 			int new_card = pile.play();
@@ -122,8 +130,10 @@ public:
 	void create(int index) {
 		name = "Com" + to_string(index);
 	}
+	//runs the play function for the computer
 	resPair play(Player& opp) {
 		int card;
+		//checking if it can play from queue
 		if (pDeck.getSize() > 0) card = pDeck.dequeue();
 		else card = pile.play();
 
@@ -131,7 +141,8 @@ public:
 			int new_card = pile.play();
 			return { card,new_card };
 		}
-		if (card < 5 ) {
+		//checking if it should put a card on the pile
+		if (card < 5) {
 			if (pile.getlength() > 0) {
 				int new_card = pile.play();
 				return { card,new_card };
@@ -139,7 +150,7 @@ public:
 			return { card };
 		}
 		if (card < 9) {
-			if (pile.getlength() < 5 && pDeck.getSize()>0) {
+			if (pile.getlength() < 5 && pDeck.getSize() > 0) {
 				pile.add(card);
 				int new_card = pDeck.dequeue();
 				return { new_card };
@@ -151,6 +162,7 @@ public:
 };
 
 int main() {
+	//intializing stuff
 	srand(time(NULL));
 	User ply;
 	Computer com;
@@ -197,10 +209,11 @@ int main() {
 	int rounds = 0;
 	if (play_type == 1) {
 		r_max = -1;
-	} else {
-		r_max = bounded_input<int>("Enter round count: ","count", 0b1100, 0);
 	}
-
+	else {
+		r_max = bounded_input<int>("Enter round count: ", "count", 0b1100, 0);
+	}
+	//runs untill one of the player runs out of of cards or until the max runs are completed(if selected)
 	while ((ply.totCards() > 0 && com.totCards() > 0) && rounds != r_max) {
 		resPair com_card;
 		resPair ply_card;
@@ -219,7 +232,7 @@ int main() {
 
 		//what follows is an abomination of string formatting that really should have just been done with printf
 		//not fit for human consumption
-		stringstream out; 
+		stringstream out;
 		out << "       ";
 		if (ply_card.c2 != 0) out << setw(2) << right << ply_card.c2 << "+" << left << setw(2) << ply_card.c1 << " ";
 		else out << "      ";
@@ -228,7 +241,7 @@ int main() {
 		cout << out.str() << endl;
 		cout << left;
 
-		if ((ply_card.c1 + ply_card.c2) > (com_card.c1 + com_card.c2)) {
+		if ((ply_card.c1 + ply_card.c2) > (com_card.c1 + com_card.c2)) {//checks if player won
 			cout << "        congrats you won!" << endl << "   adding cards to your deck!" << endl;
 
 			ply.stock_deck(ply_card.c1);
@@ -243,7 +256,7 @@ int main() {
 			ply.points++;
 
 		}
-		else {
+		else {//runs if the player lost
 			cout << "       womp womp you lost :(" << endl << "   adding cards to computer deck!" << endl;
 
 			com.stock_deck(ply_card.c1);
@@ -264,19 +277,19 @@ int main() {
 
 	}
 	int winner = ply.totCards() - com.totCards();
-	cout << "Game over!" << endl;
+	//cout << "Game over!" << endl;
 	//int winner = ply.peekDeck() > 0 - com.peekDeck() > 0;
 	//if (r_max > 0) winner = ply.points > com.points - ply.points < com.points;
-	if (winner <0) {
+	if (winner < 0) {
 		cout << "Womp Womp you lose :(" << endl;
 	}
 	if (winner == 0) {
 		cout << "Its a tie!" << endl;
 	}
-	if (winner >0) {
+	if (winner > 0) {
 		cout << "You win!" << endl;
 	}
-	
+
 	input_s("press enter to exit.");
 	return 1;
 }
