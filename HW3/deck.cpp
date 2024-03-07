@@ -1,15 +1,15 @@
 #include "deck.h"
 #include "deck_empty.h"
 
-deck::deck() : front(nullptr), rear(nullptr), size(0) {}
+deck::deck() : front(nullptr), rear(nullptr), size(0) {} // Constructor
 
-deck::~deck() {
+deck::~deck() { // Destructor
     while (!isEmpty()) {
         dequeue();
     }
 }
 
-void deck::enqueue(int value) {
+void deck::enqueue(int value) { // Adds a new card with the specified value to the end of the deck
     CardNode* newNode = new CardNode(value);
     if (isEmpty()) {
         front = rear = newNode;
@@ -20,12 +20,12 @@ void deck::enqueue(int value) {
     size++;
 }
 
-int deck::dequeue() {
+int deck::dequeue() { // Removes a card from the front of the deck and returns its value
     if (isEmpty()) {
         throw DeckEmpty();
     }
-    CardNode* temp = front;
-    int value = temp->value;
+    CardNode* temp = front; // Temporarily store the front node
+    int value = temp->value; // Move the front pointer to the next node
     front = front->next;
     if (front == nullptr) {
         rear = nullptr;
@@ -35,10 +35,10 @@ int deck::dequeue() {
     return value;
 }
 
-int deck::getSize() const {
+int deck::getSize() const { // Returns current size of deck
     return size;
 }
 
-bool deck::isEmpty() const {
+bool deck::isEmpty() const { // Returns whether deck is empty
     return size == 0;
 }
