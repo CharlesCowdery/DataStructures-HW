@@ -232,7 +232,7 @@ int main() {
 			cout << "        congrats you won!" << endl << "   adding cards to your deck!" << endl;
 
 			ply.stock_deck(ply_card.c1);
-			ply.stock_deck(com_card.c2);
+			ply.stock_deck(com_card.c1);
 			if (ply_card.c2 != 0) {
 				ply.stock_deck(ply_card.c2);
 
@@ -247,9 +247,9 @@ int main() {
 			cout << "       womp womp you lost :(" << endl << "   adding cards to computer deck!" << endl;
 
 			com.stock_deck(ply_card.c1);
-			com.stock_deck(com_card.c2);
+			com.stock_deck(com_card.c1);
 			if (ply_card.c2 != 0) {
-				ply.stock_deck(ply_card.c2);
+				com.stock_deck(ply_card.c2);
 
 			}
 			if (com_card.c2 != 0) {
