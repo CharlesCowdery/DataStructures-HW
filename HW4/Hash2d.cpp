@@ -50,7 +50,6 @@ int Hash2d::remove(int value) {
         }
         spotsChecked++;
     }
-
     return spotsChecked;
 }
 
