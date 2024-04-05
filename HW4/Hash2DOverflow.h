@@ -2,11 +2,11 @@
 #include <iostream>
 using std::string;
 
-class Hash2d: public std::exception {
+class HashOverflow: public std::exception {
     private:
         string const message = "\n Error: Cannot insert, hash table is full.";
     public:
-        int insert() {}
+        HashOverflow() {}
         string GetMessage() {
             return message;
         }
