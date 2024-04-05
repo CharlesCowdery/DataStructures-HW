@@ -1,5 +1,6 @@
 #include "Hash2D.h"
 #include <iostream>
+#include "Hash2DOverflow.h"
 using namespace std;
 
 Hash2d::Hash2d() {
@@ -23,7 +24,7 @@ int Hash2d::insert(int value) {
         }
         spotsChecked++;
     }
-    throw OVERFLOW;
+    throw HashOverflow();
 }
 
 int Hash2d::find(int value) {
