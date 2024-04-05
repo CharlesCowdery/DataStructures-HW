@@ -114,23 +114,25 @@ public:
         Node<T>* w_node = new Node<T>(w);
         if (root == nullptr) {
             root = w_node;
-            return;
+            rebalance(&root);
+            return 1;
         }
         else {
-            insert(w_node, root);
+            int v = 1 + insert(w_node, root);
+            rebalance(&root);
+            return v;
         }
-        rebalance(&root);
     }
-    void insert(Node<T>* w, Node<T>* N) {
+    int insert(Node<T>* w, Node<T>* N) {
         //checks which node path is appropriate, if it exists, it propogates the function down that path.
         //Otherwise, it sets that child pointer to the node
         //if it finds a node with value equal to the node were trying to insert, it errors out
         if (w->data > N->data) {
-            if (N->right != nullptr) insert(w, N->right);
+            if (N->right != nullptr)return 1 + insert(w, N->right);
             else N->right = w;
         }
         if (w->data < N->data) {
-            if (N->left != nullptr) insert(w, N->left);
+            if (N->left != nullptr)return 1 + insert(w, N->left);
             else N->left = w;
         }
         if (w->data == N->data) {
@@ -233,29 +235,29 @@ public:
 
         }
     }
-    Node<T>* remove(T w) {
+    int remove(T w) {
         return remove(w, &root);
     }
-    Node<T>* remove(T w, Node<T>** socket) {
+    int remove(T w, Node<T>** socket) {
         if ((*socket)->data == w) {
             Node<T>* t = (*socket);
             if ((*socket)->left == nullptr) {
                 (*socket) = (*socket)->right;
                 rebalance();
-                return t;
+                return 1;
             }
             if ((*socket)->right == nullptr) {
                 (*socket) = (*socket)->left;
                 rebalance();
-                return t;
+                return 1;
             }
             Node<T>** final_spot = swap_next(socket, &((*socket)->right));
 
             (*final_spot) = (*final_spot)->right;
-            return t;
+            return 1;
         }
-        if (w > (*socket)->data) remove(w, &((*socket)->right));
-        if (w < (*socket)->data) remove(w, &((*socket)->left));
+        if (w > (*socket)->data) 1+remove(w, &((*socket)->right));
+        if (w < (*socket)->data) 1+remove(w, &((*socket)->left));
     }
     void rebalance() {
         rebalance(&root);
