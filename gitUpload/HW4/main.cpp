@@ -6,9 +6,9 @@
 #include <ctime>
 #include <sstream>
 #include <iomanip>
-//#include"BinaryTree.h"
-#include"Hash1d.h"
-#include"Hash2d.h"
+#include "BinaryTree.h"
+#include "Hash1d.h"
+#include "Hash2d.h"
 
 
 using namespace std;
@@ -20,7 +20,7 @@ int main() {
 	int spotsBT=0;
 	Hash1d h1;
 	Hash2d h2;
-	//BinaryTree BT;
+	BinaryTree BT;
 	for (int i = 0; i < 100; i++) {// getting the list of numbers
 		nums[i] = rand() % 10000 + 1;
 	}
@@ -28,7 +28,7 @@ int main() {
 	for (int i = 0; i < 50; i++) { //insert first 50 numbers
 		spots1d += h1.insert(nums[i]);
 		spots2d += h2.insert(nums[i]);
-		//spotsBT += BT.insert(nums[i]);
+		spotsBT += BT.insert(nums[i]);
 	}
 	cout << "the spots checked for Binary tree: " << spotsBT << endl;
 	cout << "the spots checked for 1d hash: " << spots1d << endl;
@@ -41,7 +41,7 @@ int main() {
 		if (i % 7 == 0) {
 			spots1d += h1.remove(nums[i]);
 			spots2d += h2.remove(nums[i]);
-			//spotsBT += BT.remove(nums[i]);
+			spotsBT += BT.remove(nums[i]);
 		}
 	}
 	cout << "the spots checked for Binary tree: " << spotsBT << endl;
@@ -54,7 +54,7 @@ int main() {
 	for (int i = 50; i < 100; i++) { // inserting last 50 numbers
 		spots1d += h1.insert(nums[i]);
 		spots2d += h2.insert(nums[i]);
-		//spotsBT += BT.insert(nums[i]);
+		spotsBT += BT.insert(nums[i]);
 	}
 	cout << "the spots checked for Binary tree: " << spotsBT << endl;
 	cout << "the spots checked for 1d hash: " << spots1d << endl;
@@ -67,7 +67,7 @@ int main() {
 		if (i % 9 == 0) {
 			spots1d += h1.find(nums[i]);
 			spots2d += h2.find(nums[i]);
-			//spotsBT += BT.find(nums[i]);
+			spotsBT += BT.find(nums[i]);
 		}
 	
 	}
@@ -80,13 +80,10 @@ int main() {
 	cout << "printing of the three structures:" << endl;
 	cout << "1D hash:" << endl;
 	h1.print();
-	cout << "2D hash:" << endl;
-	//h2.print();
-	cout << "Binary Tree" << endl;
-	//BT.print();
-
-
-
+	// cout << "2D hash:" << endl;
+	// h2.print();
+	// cout << "Binary Tree" << endl;
+	// BT.print();
 
 	return 1;
 }
